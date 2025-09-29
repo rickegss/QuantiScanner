@@ -1,0 +1,7 @@
+numpy
+pandas
+matplotlib
+openpyxl
+reportlab
+Flask
+Flask-Cors
