@@ -112,8 +112,8 @@ def criar_aba_entrada(estado, pagina, abas_principais):
     campo_valor_max = ft.TextField(label="Valor Máximo", read_only=True, width=200, border_color="white")
     
     entrada_manual = ft.TextField(
-        label="Inserir manualmente",
-        hint_text="Digite os valores separados por vírgula",
+        label="Dados",
+        hint_text="Dados",
         width=300,
         multiline=False,
         border_color="white"
@@ -142,7 +142,8 @@ def criar_aba_entrada(estado, pagina, abas_principais):
             ft.Container(
                 content=ft.Column([
                     ft.Text("Inserir Dados", size=20, weight=ft.FontWeight.BOLD),
-                    ft.Text("Inserir manualmente"),
+                    ft.Text("Valores separados por vírgula (outros caracteres não são aceitos)", size=15),
+                    ft.Text("Utilize ponto para valores decimais:", size=13),
                     ft.Row([entrada_manual, btn_calcular], spacing=10),
                     ft.Row([btn_csv, btn_excel], spacing=10),
                     texto_status,
