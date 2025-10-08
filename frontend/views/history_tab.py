@@ -1,6 +1,6 @@
 import flet as ft
 
-def create_history(state):
+def criar_aba_historico(estado, pagina, abas_principais):
     """ Aba de histórico e integração com o database """
     return ft.Column(
         controls=[

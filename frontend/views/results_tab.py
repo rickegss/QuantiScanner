@@ -1,6 +1,6 @@
 import flet as ft
 
-def create_results(state):
+def criar_aba_resultados(estado, pagina):
     """ Exibe o gráfico boxplot e quartis, decis, percentis """
     return ft.Column(
         controls=[
