@@ -3,44 +3,48 @@ import flet as ft
 from backend.analysis import MotorAnalise
 from backend.database import GerenciadorBancoDados
 
-from frontend.views.input import create_input
-from frontend.views.history_tab import create_history
-from frontend.views.results_tab import create_results
+from frontend.views.input import criar_aba_entrada
+from frontend.views.history_tab import criar_aba_historico
+from frontend.views.results_tab import criar_aba_resultados
 
-class AppState:
-    """ Classe que guarda os dados da aplicação"""
+class EstadoApp:
     def __init__(self):
         self.motor_analise = MotorAnalise()
-        self.db_manager = GerenciadorBancoDados()
+        self.gerenciador_bd = GerenciadorBancoDados()
         self.metricas_atuais = None
         self.boxplot_atual = None
+        self.callback_atualizar_view_resultados = None
+        self.callback_atualizar_view_historico = None
+        self.callback_atualizar_view_entrada = None
 
 
-def main(page: ft.Page):
-    page.title = "QuantiScanner - Análise de Boxplot"
-    page.vertical_alignment = ft.MainAxisAlignment.START
-    page.window_width = 800
-    page.window_height = 600
+def main(pagina: ft.Page):
+    pagina.title = "QuantiScanner - Análise de Boxplot"
+    pagina.vertical_alignment = ft.MainAxisAlignment.START
+    pagina.window_width = 1200
+    pagina.window_height = 700
 
-    app_state = AppState()
+    estado_app = EstadoApp()
 
-    input_content = create_input(app_state)
-    history_content = create_history(app_state)
-    results_content = create_results(app_state)   
-
-    main_tabs = ft.Tabs(
+    abas_principais = ft.Tabs(
         selected_index=0,
         animation_duration=350,
-        tabs=[
-            ft.Tab(text="Entrada de Dados", content=input_content),
-            ft.Tab(text="Resultados", content=results_content),
-            ft.Tab(text="Histórico", content=history_content)
-        ],
-        expand=1
+        tabs=[],
+        expand=True
     )
 
-    page.add(main_tabs)
-    page.update()
+    conteudo_entrada = criar_aba_entrada(estado_app, pagina, abas_principais)
+    conteudo_historico = criar_aba_historico(estado_app, pagina, abas_principais)
+    conteudo_resultados = criar_aba_resultados(estado_app, pagina)
+
+    abas_principais.tabs = [
+        ft.Tab(text="Entrada de Dados", content=conteudo_entrada),
+        ft.Tab(text="Resultados", content=conteudo_resultados),
+        ft.Tab(text="Histórico", content=conteudo_historico)
+    ]
+
+    pagina.add(abas_principais)
+    pagina.update()
 
 
 if __name__ == "__main__":
